@@ -28,7 +28,7 @@ router.get("/", async (req: Request, res: Response) => {
 router.get("/:id", async (req: Request, res: Response) => {
   try {
     const order = await prisma.order.findUnique({
-      where: { id: req.params.id },
+      where: { id: String(req.params.id) },
       include: { user: { select: { id: true, name: true, email: true } } },
     });
 
@@ -84,7 +84,7 @@ router.patch("/:id/status", async (req: Request, res: Response) => {
     }
 
     const order = await prisma.order.update({
-      where: { id: req.params.id },
+      where: { id: String(req.params.id) },
       data: { status },
     });
 

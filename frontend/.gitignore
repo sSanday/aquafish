@@ -23,3 +23,11 @@ dist-ssr
 *.sln
 *.sw?
 .env
+.env.local
+.next/
+out/
+build/
+*.tsbuildinfo
+prisma/dev.db
+prisma/*.db-journal
+

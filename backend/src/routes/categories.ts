@@ -21,7 +21,7 @@ router.get("/", async (_req: Request, res: Response) => {
 router.get("/:id", async (req: Request, res: Response) => {
   try {
     const category = await prisma.category.findUnique({
-      where: { id: req.params.id },
+      where: { id: String(req.params.id) },
       include: { products: true },
     });
 
@@ -61,7 +61,7 @@ router.put("/:id", async (req: Request, res: Response) => {
     const { name, description } = req.body;
 
     const category = await prisma.category.update({
-      where: { id: req.params.id },
+      where: { id: String(req.params.id) },
       data: {
         ...(name && { name }),
         ...(description !== undefined && { description }),
@@ -78,7 +78,7 @@ router.put("/:id", async (req: Request, res: Response) => {
 // DELETE /api/categories/:id
 router.delete("/:id", async (req: Request, res: Response) => {
   try {
-    await prisma.category.delete({ where: { id: req.params.id } });
+    await prisma.category.delete({ where: { id: String(req.params.id) } });
     res.json({ success: true, message: "Category deleted" });
   } catch (error) {
     console.error("DELETE /categories/:id:", error);
